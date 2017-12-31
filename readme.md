@@ -3,7 +3,7 @@
 ```sh
 $ git clone https://gitlab.com/syui/xq
 $ cd xq
-$ go build
+$ go build -o xq
 $ ./xq -h
 ```
 
