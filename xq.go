@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	gofeed "github.com/mmcdole/gofeed"
-	_ "reflect"
 	"github.com/urfave/cli"
+	_ "reflect"
+	gofeed "github.com/mmcdole/gofeed"
 )
 
 func Action(c *cli.Context) {
@@ -15,19 +15,13 @@ func Action(c *cli.Context) {
 		app.Run(help)
 		os.Exit(1)
 	}
-	file, _ := os.Open(c.Args().Get(0))
-	defer file.Close()
-	fp := gofeed.NewParser()
-	feed, _ := fp.Parse(file)
-	items := feed.Items
-	fmt.Printf("%s", items)
 }
 
 func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
-	app.Usage = "xq /path/to/rss.xml"
-	app.Version = "0.0.1"
+	app.Usage = "xq title /path/to/rss.xml"
+	app.Version = "0.0.2"
 	app.Author = "syui"
 	return app
 }
@@ -35,5 +29,29 @@ func App() *cli.App {
 func main() {
 	app := App()
 	app.Action = Action
+	app.Commands = []cli.Command{
+		{
+			Name:    "title",
+			Aliases: []string{"t"},
+			Usage:   "title a task on the list",
+			Action:  func(c *cli.Context) error {
+				file, _ := os.Open(c.Args().First())
+				defer file.Close()
+				fp := gofeed.NewParser()
+				feed, _ := fp.Parse(file)
+				items := feed.Items
+				fmt.Printf("%s", items)
+				return nil
+			},
+		},
+		{
+			Name:    "add",
+			Aliases: []string{"a"},
+			Usage:   "add a task to the list",
+			Action:  func(c *cli.Context) error {
+				return nil
+			},
+		},
+	}
 	app.Run(os.Args)
 }

@@ -4,7 +4,7 @@
 $ git clone https://gitlab.com/syui/xq
 $ cd xq
 $ go build
-$ ./xq
+$ ./xq -h
 ```
 
 ## example
@@ -12,10 +12,12 @@ $ ./xq
 ```sh
 $ url=https://syui.gitlab.io/test-hugo-theme-wave/index.xml
 $ curl -sSL -H "Accept: application/xml" $url -o index.xml
-$ xq ./index.xml
+$ xq t ./index.xml
 ```
 
 ## ref
+
+https://github.com/urfave/cli
 
 https://github.com/mmcdole/gofeed
 
