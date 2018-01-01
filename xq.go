@@ -26,29 +26,40 @@ func App() *cli.App {
 	return app
 }
 
+type RssItem struct {
+	Title  string
+	Link   string
+}
+
+type RssItems []RssItem
+
+func (b RssItems) Len() int {
+	return len(b)
+}
+
 func main() {
 	app := App()
 	app.Action = Action
 	app.Commands = []cli.Command{
 		{
-			Name:    "title",
-			Aliases: []string{"t"},
-			Usage:   "title a task on the list",
+			Name:    "item",
+			Aliases: []string{"i"},
+			Usage:   "item a list",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()
 				fp := gofeed.NewParser()
 				feed, _ := fp.Parse(file)
 				items := feed.Items
-				fmt.Printf("%s", items)
-				return nil
-			},
-		},
-		{
-			Name:    "add",
-			Aliases: []string{"a"},
-			Usage:   "add a task to the list",
-			Action:  func(c *cli.Context) error {
+				//fmt.Printf("%s", items)
+				var RssItems RssItems
+				for _, item := range items {
+					var RssItem RssItem = RssItem{item.Title, item.Link}
+					RssItems = append(RssItems, RssItem)
+				}
+				for _, item := range RssItems {
+					fmt.Printf("%s : %s\n", item.Title, item.Link)
+				}
 				return nil
 			},
 		},
