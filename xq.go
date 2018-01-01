@@ -20,7 +20,7 @@ func Action(c *cli.Context) {
 func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
-	app.Usage = "xq title /path/to/rss.xml"
+	app.Usage = "xq i /path/to/rss.xml"
 	app.Version = "0.0.2"
 	app.Author = "syui"
 	return app
@@ -44,7 +44,7 @@ func main() {
 		{
 			Name:    "item",
 			Aliases: []string{"i"},
-			Usage:   "item a list",
+			Usage:   "title, link",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()

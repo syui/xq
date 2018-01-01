@@ -12,7 +12,7 @@ $ ./xq -h
 ```sh
 $ url=https://syui.gitlab.io/test-hugo-theme-wave/index.xml
 $ curl -sSL -H "Accept: application/xml" $url -o index.xml
-$ xq t ./index.xml
+$ xq i ./index.xml
 ```
 
 ## ref
