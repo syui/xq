@@ -51,14 +51,13 @@ func main() {
 				fp := gofeed.NewParser()
 				feed, _ := fp.Parse(file)
 				items := feed.Items
-				//fmt.Printf("%s", items)
 				var RssItems RssItems
 				for _, item := range items {
 					var RssItem RssItem = RssItem{item.Title, item.Link}
 					RssItems = append(RssItems, RssItem)
 				}
 				for _, item := range RssItems {
-					fmt.Printf("%s : %s\n", item.Title, item.Link)
+					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\"}\n", item.Title, item.Link)
 				}
 				return nil
 			},
