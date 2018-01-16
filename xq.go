@@ -30,6 +30,7 @@ type RssItem struct {
 	Title		string
 	Link		string
 	Updated		string
+	Published	string
 }
 
 type RssItems []RssItem
@@ -54,11 +55,11 @@ func main() {
 				items := feed.Items
 				var RssItems RssItems
 				for _, item := range items {
-					var RssItem RssItem = RssItem{item.Title, item.Link, item.Updated}
+					var RssItem RssItem = RssItem{item.Title, item.Link, item.Updated, item.Published}
 					RssItems = append(RssItems, RssItem)
 				}
 				for _, item := range RssItems {
-					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\",\"date\":\"%s\"}\n", item.Title, item.Link, item.Updated)
+					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\",\"date\":\"%s\",\"publish\":\"%s\"}\n", item.Title, item.Link, item.Updated, item.Published)
 				}
 				return nil
 			},
