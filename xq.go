@@ -59,13 +59,13 @@ func main() {
 					RssItems = append(RssItems, RssItem)
 				}
 				for _, item := range RssItems {
-					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\",\"date\":\"%s\",\"publish\":\"%s\"}\n", item.Title, item.Link, item.Updated, item.Published)
+					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\",\"update\":\"%s\",\"publish\":\"%s\"}\n", item.Title, item.Link, item.Updated, item.Published)
 				}
 				return nil
 			},
 		},
 		{
-			Name:    "latest",
+			Name:    "latest update",
 			Aliases: []string{"l"},
 			Usage:   "latest updated",
 			Action:  func(c *cli.Context) error {
