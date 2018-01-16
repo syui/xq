@@ -12,7 +12,20 @@ $ ./xq -h
 ```sh
 $ url=https://syui.gitlab.io/test-hugo-theme-wave/index.xml
 $ curl -sSL -H "Accept: application/xml" $url -o index.xml
+$ cat index.xml
+
 $ xq i ./index.xml
+{"title":"Creating a new theme","link":"https://syui.gitlab.io/test-hugo-theme-wave/2016/01/01/creating-a-new-theme/","date":"2018-01-16T00:00:00.000+09:00"}
+{"title":"Archive","link":"https://syui.gitlab.io/test-hugo-theme-wave/archive/","date":"2018-01-16T00:00:00.000+09:00"}
+```
+
+## version 
+
+### 0.03 : latest updated
+
+```sh
+$ xq l ./index.xml
+2018-01-16T00:00:00.000+09:00
 ```
 
 ## ref
