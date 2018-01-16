@@ -21,7 +21,7 @@ $ xq i ./index.xml
 
 ## version 
 
-### 0.03 : latest updated
+### 0.0.3 : latest updated
 
 ```sh
 $ xq l ./index.xml
