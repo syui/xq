@@ -1,3 +1,9 @@
+## download
+
+```sh
+$ go get -u gitlab.com/syui/xq
+```
+
 ## build
 
 ```sh
@@ -17,6 +23,12 @@ $ cat index.xml
 $ xq i ./index.xml
 {"title":"Creating a new theme","link":"https://syui.gitlab.io/test-hugo-theme-wave/2016/01/01/creating-a-new-theme/","date":"2018-01-16T00:00:00.000+09:00"}
 {"title":"Archive","link":"https://syui.gitlab.io/test-hugo-theme-wave/archive/","date":"2018-01-16T00:00:00.000+09:00"}
+```
+
+```sh
+$ date -R
+$ date -d "Sat, 20 Jan 2018 00:00:00 +0900" '+%Y-%m-%dT%H:%H:%M'
+2018-01-20T00:00:00
 ```
 
 ## version 
