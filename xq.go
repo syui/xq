@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"encoding/json"
 	"github.com/urfave/cli"
 	_ "reflect"
 	gofeed "github.com/mmcdole/gofeed"
@@ -21,16 +22,16 @@ func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
 	app.Usage = "xq i /path/to/rss.xml"
-	app.Version = "0.0.3"
+	app.Version = "0.0.4"
 	app.Author = "syui"
 	return app
 }
 
 type RssItem struct {
-	Title		string
-	Link		string
-	Updated		string
-	Published	string
+	Title		string `json:"title"`
+	Link		string `json:"link"`
+	Updated		string `json:"update"`
+	Published	string `json:"publish"`
 }
 
 type RssItems []RssItem
@@ -46,7 +47,7 @@ func main() {
 		{
 			Name:    "item",
 			Aliases: []string{"i"},
-			Usage:   "title, link",
+			Usage:   "xq i ./index.xml #output [title,link,update,publish]",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()
@@ -61,19 +62,39 @@ func main() {
 				for _, item := range RssItems {
 					fmt.Printf("{\"title\":\"%s\",\"link\":\"%s\",\"update\":\"%s\",\"publish\":\"%s\"}\n", item.Title, item.Link, item.Updated, item.Published)
 				}
+
 				return nil
 			},
 		},
 		{
-			Name:    "latest update",
+			Name:    "latest",
 			Aliases: []string{"l"},
-			Usage:   "latest updated",
+			Usage:   "xq l ./index.xml #latest updated",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()
 				fp := gofeed.NewParser()
 				feed, _ := fp.Parse(file)
 				fmt.Println(feed.Updated)
+				return nil
+			},
+		},
+		{
+			Name:    "json",
+			Aliases: []string{"j"},
+			Usage:   "xq j ./index.xml #json output",
+			Action:  func(c *cli.Context) error {
+				file, _ := os.Open(c.Args().First())
+				defer file.Close()
+				fp := gofeed.NewParser()
+				feed, _ := fp.Parse(file)
+				items := feed.Items
+				outputJson, err := json.Marshal(&items)
+				if err != nil {
+					panic(err)
+				}
+				//w.Header().Set("Content-Type", "application/json")
+				fmt.Printf("%s", string(outputJson))
 				return nil
 			},
 		},
