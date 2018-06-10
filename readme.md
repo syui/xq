@@ -36,6 +36,14 @@ $ xq ./index.xml
 {"title":"Archive","link":"https://syui.gitlab.io/test-hugo-theme-wave/archive/","date":"2018-01-16T00:00:00.000+09:00"}
 ```
 
+## link
+
+https://gitlab.com/syui/xq
+
+https://github.com/syui/xq
+
+https://aur.archlinux.org/packages/xq/
+
 ## ref
 
 https://github.com/urfave/cli
