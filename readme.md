@@ -1,7 +1,7 @@
 ## download
 
 ```sh
-$ go get gitlab.com/syui/xq
+$ go get -v gitlab.com/syui/xq
 ```
 
 ## use
