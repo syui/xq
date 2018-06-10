@@ -13,7 +13,7 @@ func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
 	app.Usage = "xq /path/to/rss.xml"
-	app.Version = "0.0.5"
+	app.Version = "0.1.0"
 	app.Author = "syui"
 	return app
 }
