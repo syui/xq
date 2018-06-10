@@ -9,20 +9,11 @@ import (
 	gofeed "github.com/mmcdole/gofeed"
 )
 
-func Action(c *cli.Context) {
-	app := App()
-	if c.Args().Get(0) == "" {
-		help := []string{"", "--help"}
-		app.Run(help)
-		os.Exit(1)
-	}
-}
-
 func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
-	app.Usage = "xq i /path/to/rss.xml"
-	app.Version = "0.0.4"
+	app.Usage = "xq /path/to/rss.xml"
+	app.Version = "0.0.5"
 	app.Author = "syui"
 	return app
 }
@@ -38,6 +29,27 @@ type RssItems []RssItem
 
 func (b RssItems) Len() int {
 	return len(b)
+}
+
+func Action(c *cli.Context) {
+	app := App()
+	if c.Args().Get(0) == "" {
+		help := []string{"", "--help"}
+		app.Run(help)
+		os.Exit(1)
+	} else {
+		file, _ := os.Open(c.Args().First())
+		defer file.Close()
+		fp := gofeed.NewParser()
+		feed, _ := fp.Parse(file)
+		items := feed.Items
+		outputJson, err := json.Marshal(&items)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%s", string(outputJson))
+	}
+	return
 }
 
 func main() {
@@ -76,25 +88,6 @@ func main() {
 				fp := gofeed.NewParser()
 				feed, _ := fp.Parse(file)
 				fmt.Println(feed.Updated)
-				return nil
-			},
-		},
-		{
-			Name:    "json",
-			Aliases: []string{"j"},
-			Usage:   "xq j ./index.xml #json output",
-			Action:  func(c *cli.Context) error {
-				file, _ := os.Open(c.Args().First())
-				defer file.Close()
-				fp := gofeed.NewParser()
-				feed, _ := fp.Parse(file)
-				items := feed.Items
-				outputJson, err := json.Marshal(&items)
-				if err != nil {
-					panic(err)
-				}
-				//w.Header().Set("Content-Type", "application/json")
-				fmt.Printf("%s", string(outputJson))
 				return nil
 			},
 		},
