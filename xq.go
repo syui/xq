@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"encoding/json"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	_ "reflect"
 	gofeed "github.com/mmcdole/gofeed"
 )
@@ -13,8 +13,7 @@ func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
 	app.Usage = "xq /path/to/rss.xml"
-	app.Version = "0.1.0"
-	app.Author = "syui"
+	app.Version = "0.2.0"
 	return app
 }
 
@@ -54,8 +53,7 @@ func Action(c *cli.Context) {
 
 func main() {
 	app := App()
-	app.Action = Action
-	app.Commands = []cli.Command{
+	app.Commands = []*cli.Command{
 		{
 			Name:    "item",
 			Aliases: []string{"i"},
