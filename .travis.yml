@@ -1,7 +1,7 @@
 language: go
 
 go:
-        - "1.10.x"
+        - "1.13"
         - master
 
 branches:
@@ -14,4 +14,4 @@ before_install:
 
 script:
         - gox -output "dist/{{.OS}}_{{.Arch}}_{{.Dir}}"
-        - ghr --username syui --token $GITHUB_TOKEN --replace --debug 0.1 dist/
+        - ghr --username syui --token $GITHUB_TOKEN --replace --debug 0.2 dist/
