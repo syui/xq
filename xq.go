@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"encoding/json"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	_ "reflect"
 	gofeed "github.com/mmcdole/gofeed"
 )
@@ -12,9 +12,8 @@ import (
 func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
-	app.Usage = "xq /path/to/rss.xml"
-	app.Version = "0.1.0"
-	app.Author = "syui"
+	app.Usage = "xq a /path/to/rss.xml"
+	app.Version = "0.2.1"
 	return app
 }
 
@@ -37,25 +36,13 @@ func Action(c *cli.Context) {
 		help := []string{"", "--help"}
 		app.Run(help)
 		os.Exit(1)
-	} else {
-		file, _ := os.Open(c.Args().First())
-		defer file.Close()
-		fp := gofeed.NewParser()
-		feed, _ := fp.Parse(file)
-		items := feed.Items
-		outputJson, err := json.Marshal(&items)
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("%s", string(outputJson))
 	}
 	return
 }
 
 func main() {
 	app := App()
-	app.Action = Action
-	app.Commands = []cli.Command{
+	app.Commands = []*cli.Command{
 		{
 			Name:    "item",
 			Aliases: []string{"i"},
