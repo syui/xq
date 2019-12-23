@@ -17,7 +17,7 @@ $ xq /path/to/rss.xml
 $ git clone https://github.com/syui/xq
 $ cd xq
 $ go build -o xq
-$ ./xq
+$ ./xq h
 ```
 
 ## example
@@ -31,6 +31,15 @@ $ xq i ./index.xml
   "link": "https://syui.gitlab.io/test-hugo-theme-wave/2016/01/01/creating-a-new-theme/",
   "date": "2018-01-16T00:00:00.000+09:00"
 }
+
+$ xq l link index.xml
+https://syui.gitlab.io/test-hugo-theme-wave/2016/01/01/creating-a-new-theme/
+
+$ xq l title index.xml
+Creating a new theme
+
+$ xq p index.xml
+2018-01-16T00:00:00.000+09:00
 ```
 
 ## update
@@ -44,4 +53,6 @@ $ xq i ./index.xml
 - 0.2.3 : fix option/[i]tem(json)
 
 - 0.2.4 : option/none, $ xq file
+
+- 0.3.0 : sub-command/{link, title, published, description}, $ xq l link ./index.xml
 

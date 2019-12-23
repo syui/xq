@@ -13,7 +13,7 @@ func App() *cli.App {
     app := cli.NewApp()
     app.Name = "xq"
     app.Usage = "xq /path/to/rss.xml"
-    app.Version = "0.2.4"
+    app.Version = "0.3.0"
     return app
 }
 
@@ -96,6 +96,60 @@ func main() {
 	    Name:    "update",
 	    Aliases: []string{"u","l"},
 	    Usage:   "xq u ./index.xml #latest updated",
+	    Subcommands: []*cli.Command{
+		{
+		    Name:  "link",
+		    Usage: "xq l link ./index.xml #latest item link",
+		    Action: func(c *cli.Context) error {
+			file, _ := os.Open(c.Args().First())
+			defer file.Close()
+			fp := gofeed.NewParser()
+			feed, _ := fp.Parse(file)
+			item := feed.Items[0].Link
+			fmt.Printf("%s\n",item)
+			return nil
+		    },
+		},
+		{
+		    Name:  "title",
+		    Usage: "xq l title ./index.xml #latest itme title",
+		    Action: func(c *cli.Context) error {
+			file, _ := os.Open(c.Args().First())
+			defer file.Close()
+			fp := gofeed.NewParser()
+			feed, _ := fp.Parse(file)
+			item := feed.Items[0].Title
+			fmt.Printf("%s\n",item)
+			return nil
+		    },
+		},
+		{
+		    Name:  "description",
+		    Usage: "xq l description ./index.xml #latest itme description",
+		    Action: func(c *cli.Context) error {
+			file, _ := os.Open(c.Args().First())
+			defer file.Close()
+			fp := gofeed.NewParser()
+			feed, _ := fp.Parse(file)
+			item := feed.Items[0].Description
+			fmt.Printf("%s\n",item)
+			return nil
+		    },
+		},
+		{
+		    Name:  "published",
+		    Usage: "xq l published ./index.xml #latest itme published",
+		    Action: func(c *cli.Context) error {
+			file, _ := os.Open(c.Args().First())
+			defer file.Close()
+			fp := gofeed.NewParser()
+			feed, _ := fp.Parse(file)
+			item := feed.Items[0].Published
+			fmt.Printf("%s\n",item)
+			return nil
+		    },
+		},
+	    },
 	    Action:  func(c *cli.Context) error {
 		file, _ := os.Open(c.Args().First())
 		defer file.Close()
@@ -103,6 +157,7 @@ func main() {
 		feed, _ := fp.Parse(file)
 		fmt.Println(feed.Updated)
 		return nil
+
 	    },
 	},
 	{
