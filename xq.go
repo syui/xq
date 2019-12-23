@@ -13,7 +13,7 @@ func App() *cli.App {
 	app := cli.NewApp()
 	app.Name = "xq"
 	app.Usage = "xq a /path/to/rss.xml"
-	app.Version = "0.2.1"
+	app.Version = "0.2.2"
 	return app
 }
 
@@ -66,9 +66,9 @@ func main() {
 			},
 		},
 		{
-			Name:    "latest",
-			Aliases: []string{"l"},
-			Usage:   "xq l ./index.xml #latest updated",
+			Name:    "update",
+			Aliases: []string{"u","l"},
+			Usage:   "xq u ./index.xml #latest updated",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()
@@ -79,9 +79,23 @@ func main() {
 			},
 		},
 		{
+			Name:    "publish",
+			Aliases: []string{"p"},
+			Usage:   "xq p ./index.xml #latest items published",
+			Action:  func(c *cli.Context) error {
+				file, _ := os.Open(c.Args().First())
+				defer file.Close()
+				fp := gofeed.NewParser()
+				feed, _ := fp.Parse(file)
+				item := feed.Items[0].Published
+				fmt.Printf("%s\n",item)
+				return nil
+			},
+		},
+		{
 			Name:    "all",
 			Aliases: []string{"a"},
-			Usage:   "xq a ./index.xml",
+			Usage:   "xq a ./index.xml #json",
 			Action:  func(c *cli.Context) error {
 				file, _ := os.Open(c.Args().First())
 				defer file.Close()
