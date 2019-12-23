@@ -12,16 +12,16 @@ import (
 func App() *cli.App {
     app := cli.NewApp()
     app.Name = "xq"
-    app.Usage = "xq a /path/to/rss.xml"
-    app.Version = "0.2.3"
+    app.Usage = "xq /path/to/rss.xml"
+    app.Version = "0.2.4"
     return app
 }
 
 type RssItem struct {
-    Title		string `json:"title"`
-    Link		string `json:"link"`
-    Updated		string `json:"update"`
-    Published		string `json:"publish"`
+    Title	string `json:"title"`
+    Link	string `json:"link"`
+    Updated	string `json:"update"`
+    Published	string `json:"publish"`
 }
 
 type RssItems []RssItem
@@ -41,7 +41,28 @@ func Action(c *cli.Context) {
 }
 
 func main() {
-    app := App()
+    app := &cli.App{
+	Name: "file",
+	Usage: "$ xq index.xml",
+	Action: func(c *cli.Context) error {
+	    if c.Args().Get(0) == "" {
+		help := []string{"xq", "--help"}
+		fmt.Printf("%s", help)
+	    } else {
+		file, _ := os.Open(c.Args().Get(0))
+		defer file.Close()
+		fp := gofeed.NewParser()
+		feed, _ := fp.Parse(file)
+		items := feed.Items
+		outputJson, err := json.Marshal(&items)
+		if err != nil {
+		    panic(err)
+		}
+		fmt.Printf("%s", string(outputJson))
+	    }
+	    return nil
+	},
+    }
     app.Commands = []*cli.Command{
 	{
 	    Name:    "item",
