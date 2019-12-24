@@ -93,7 +93,7 @@ func main() {
 	    },
 	},
 	{
-	    Name:    "update",
+	    Name:    "latest",
 	    Aliases: []string{"u","l"},
 	    Usage:   "xq u ./index.xml #latest updated",
 	    Subcommands: []*cli.Command{
