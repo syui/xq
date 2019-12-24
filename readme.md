@@ -1,10 +1,30 @@
 `xq` converts xml to json.
 
-## download
+## install
 
 ```sh
 $ go get -v github.com/syui/xq
 ```
+
+archlinux aur package
+
+```sh
+$ sudo pacman -S go-pie
+$ yay -S xq
+```
+
+if you use go instead of go-pie
+
+`PKGBUILD`
+
+```sh
+- makedepends=('go-pie')
++ makedepends=('go')
+```
+
+## download
+
+https://github.com/syui/xq/releases
 
 ## use
 
@@ -90,3 +110,4 @@ $ xq l d index.xml
 
 - 0.3.3 : change option/all, $ xq a ./index.xml
 
+- 0.3.4 : change option/update -> latest, $ xq latest ./index.xml
