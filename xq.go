@@ -41,7 +41,7 @@ func Action(c *cli.Context) {
 
 func main() {
     app := &cli.App{
-	Version: "0.3.3",
+	Version: "0.3.4",
 	Name: "xq",
 	Usage: "$ xq index.xml #xml -> json",
 	Action: func(c *cli.Context) error {

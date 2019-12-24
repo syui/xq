@@ -90,3 +90,4 @@ $ xq l d index.xml
 
 - 0.3.3 : change option/all, $ xq a ./index.xml
 
+- 0.3.4 : change option/update -> latest, $ xq latest ./index.xml
