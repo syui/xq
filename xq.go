@@ -13,7 +13,6 @@ func App() *cli.App {
     app := cli.NewApp()
     app.Name = "xq"
     app.Usage = "xq /path/to/rss.xml"
-    app.Version = "0.3.1"
     return app
 }
 
@@ -42,7 +41,7 @@ func Action(c *cli.Context) {
 
 func main() {
     app := &cli.App{
-	Version: "0.3.1",
+	Version: "0.3.2",
 	Name: "xq",
 	Usage: "$ xq index.xml",
 	Action: func(c *cli.Context) error {
@@ -100,6 +99,7 @@ func main() {
 	    Subcommands: []*cli.Command{
 		{
 		    Name:  "link",
+		    Aliases: []string{"l"},
 		    Usage: "xq l link ./index.xml #latest item link",
 		    Action: func(c *cli.Context) error {
 			file, _ := os.Open(c.Args().First())
@@ -113,6 +113,7 @@ func main() {
 		},
 		{
 		    Name:  "title",
+		    Aliases: []string{"t"},
 		    Usage: "xq l title ./index.xml #latest itme title",
 		    Action: func(c *cli.Context) error {
 			file, _ := os.Open(c.Args().First())
@@ -126,6 +127,7 @@ func main() {
 		},
 		{
 		    Name:  "description",
+		    Aliases: []string{"d"},
 		    Usage: "xq l description ./index.xml #latest itme description",
 		    Action: func(c *cli.Context) error {
 			file, _ := os.Open(c.Args().First())
@@ -139,6 +141,7 @@ func main() {
 		},
 		{
 		    Name:  "published",
+		    Aliases: []string{"p"},
 		    Usage: "xq l published ./index.xml #latest itme published",
 		    Action: func(c *cli.Context) error {
 			file, _ := os.Open(c.Args().First())
