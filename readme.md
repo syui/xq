@@ -92,3 +92,6 @@ $ xq l d index.xml
 - 0.3.1 : fix version, $ xq v
 
 - 0.3.2 : add alias sub-command, $ xq l d ./index.xml
+
+- 0.3.3 : fix option/all, $ xq a ./index.xml
+

@@ -41,9 +41,9 @@ func Action(c *cli.Context) {
 
 func main() {
     app := &cli.App{
-	Version: "0.3.2",
+	Version: "0.3.3",
 	Name: "xq",
-	Usage: "$ xq index.xml",
+	Usage: "$ xq index.xml #xml -> json",
 	Action: func(c *cli.Context) error {
 	    if c.Args().Get(0) == "" {
 		help := []string{"xq", "--help"}
@@ -180,18 +180,14 @@ func main() {
 	{
 	    Name:    "all",
 	    Aliases: []string{"a"},
-	    Usage:   "xq a ./index.xml #json",
+	    Usage:   "xq a ./index.xml #src date",
 	    Action:  func(c *cli.Context) error {
 		file, _ := os.Open(c.Args().First())
 		defer file.Close()
 		fp := gofeed.NewParser()
 		feed, _ := fp.Parse(file)
 		items := feed.Items
-		outputJson, err := json.Marshal(&items)
-		if err != nil {
-		    panic(err)
-		}
-		fmt.Printf("%s", string(outputJson))
+		fmt.Printf("%s", items)
 		return nil
 	    },
 	},
