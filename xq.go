@@ -13,7 +13,7 @@ func App() *cli.App {
     app := cli.NewApp()
     app.Name = "xq"
     app.Usage = "xq /path/to/rss.xml"
-    app.Version = "0.3.0"
+    app.Version = "0.3.1"
     return app
 }
 
@@ -42,7 +42,8 @@ func Action(c *cli.Context) {
 
 func main() {
     app := &cli.App{
-	Name: "file",
+	Version: "0.3.1",
+	Name: "xq",
 	Usage: "$ xq index.xml",
 	Action: func(c *cli.Context) error {
 	    if c.Args().Get(0) == "" {
