@@ -55,23 +55,18 @@ $ xq p index.xml
 2018-01-16T00:00:00.000+09:00
 
 # latest item link
-$ xq l link index.xml
-$ xq l l index.xml
+$ xq latest link index.xml
 https://syui.gitlab.io/test-hugo-theme-wave/2016/01/01/creating-a-new-theme/
 
 # latest item title
-$ xq l title index.xml
 $ xq l t index.xml
 Creating a new theme
 
 # latest item publish
-$ xq l published index.xml
 $ xq l p index.xml
-$ xq p index.xml
 2018-01-16T00:00:00.000+09:00
 
 # latest item description
-$ xq l description index.xml
 $ xq l d index.xml
 ```
 
