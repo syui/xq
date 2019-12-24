@@ -89,6 +89,9 @@ $ xq l d index.xml
 
 - 0.3.0 : option/[l]atest, sub-command/{link, title, published, description}, $ xq l link ./index.xml
 
-- 0.3.1 : fix version, $ xq v
+- 0.3.1 : fix version, $ xq -v
 
 - 0.3.2 : add alias sub-command, $ xq l d ./index.xml
+
+- 0.3.3 : change option/all, $ xq a ./index.xml
+
