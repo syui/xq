@@ -88,6 +88,9 @@ $ xq l p index.xml
 
 # latest item description
 $ xq l d index.xml
+
+# latest item author
+$ xq l a index.xml
 ```
 
 ## update
@@ -111,3 +114,5 @@ $ xq l d index.xml
 - 0.3.3 : change option/all, $ xq a ./index.xml
 
 - 0.3.4 : change option/update -> latest, $ xq latest ./index.xml
+
+- 0.3.4 : change option/update -> latest, $ xq latest author ./index.xml

@@ -5,9 +5,30 @@ import (
 	"os"
 	"encoding/json"
 	"github.com/urfave/cli/v2"
+	"github.com/mmcdole/gofeed"
+  "github.com/mmcdole/gofeed/rss"
 	_ "reflect"
-	gofeed "github.com/mmcdole/gofeed"
 )
+
+type MyCustomTranslator struct {
+    defaultTranslator *gofeed.DefaultRSSTranslator
+}
+func NewMyCustomTranslator() *MyCustomTranslator {
+  t := &MyCustomTranslator{}
+  t.defaultTranslator = &gofeed.DefaultRSSTranslator{}
+  return t
+}
+func (ct* MyCustomTranslator) Translate(feed interface{}) (*gofeed.Feed, error) {
+	rss, found := feed.(*rss.Feed)
+	if !found {
+		return nil, fmt.Errorf("Feed did not match expected type of *rss.Feed")
+	}
+  f,err := ct.defaultTranslator.Translate(rss)
+  if err != nil {
+    return nil, err
+  }
+  return f, nil
+}
 
 func App() *cli.App {
 	app := cli.NewApp()
@@ -150,6 +171,21 @@ func main() {
 						feed, _ := fp.Parse(file)
 						item := feed.Items[0].Published
 						fmt.Printf("%s\n",item)
+						return nil
+					},
+				},
+				{
+					Name:  "author",
+					Aliases: []string{"a"},
+					Usage: "xq l published ./index.xml #latest itme author",
+					Action: func(c *cli.Context) error {
+						file, _ := os.Open(c.Args().First())
+						defer file.Close()
+						fp := gofeed.NewParser()
+						fp.RSSTranslator = NewMyCustomTranslator()
+						feed, _ := fp.Parse(file)
+						item := feed.Items[0].Author
+						fmt.Printf("%s", item)
 						return nil
 					},
 				},
