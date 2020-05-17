@@ -4,11 +4,16 @@ import (
 	"fmt"
 	"os"
 	"encoding/json"
+    "io/ioutil"
 	"github.com/urfave/cli/v2"
 	"github.com/mmcdole/gofeed"
 	"github.com/mmcdole/gofeed/rss"
 	_ "reflect"
 )
+
+type JSONData struct {
+    body string
+}
 
 type MyCustomTranslator struct {
     defaultTranslator *gofeed.DefaultRSSTranslator
@@ -224,6 +229,24 @@ func main() {
 				feed, _ := fp.Parse(file)
 				items := feed.Items
 				fmt.Printf("%s", items)
+				return nil
+			},
+		},
+		{
+			Name:    "json",
+			Aliases: []string{"j"},
+			Usage:   "xq j ./index.txt",
+			Action:  func(c *cli.Context) error {
+				b, err := ioutil.ReadFile(c.Args().First())
+				if err != nil {
+					fmt.Println(os.Stderr, err)
+					os.Exit(1)
+				}
+				m := map[string]interface{}{
+				  "body":string(b),
+				}
+				s, _ := json.Marshal(m)
+				fmt.Println(string(s))
 				return nil
 			},
 		},
