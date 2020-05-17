@@ -93,6 +93,17 @@ $ xq l d index.xml
 $ xq l a index.xml
 ```
 
+convert md to json{body}.
+
+```sh
+$ cat index.txt
+### :emoji: test
+markdown "json".
+
+$ xq j index.txt
+{"body":"### :emoji: test\n```sh\ncode\n```\nmarkdown \"json\".\n"}
+```
+
 ## update
 
 - 0.2.0 : urfave/cli/v2
@@ -115,4 +126,6 @@ $ xq l a index.xml
 
 - 0.3.4 : change option/update -> latest, $ xq latest ./index.xml
 
-- 0.3.5 : change option/update -> latest, $ xq latest author ./index.xml
+- 0.3.5 : add sub-command -> author, $ xq latest author ./index.xml
+
+- 0.3.6 : add option/json, $ xq json ./index.txt
